@@ -206,7 +206,7 @@ shakaDemo.storeDeleteAsset_ = function() {
     let metadata = {name: assetName || nameField || asset.manifestUri};
     p = storage.store(asset.manifestUri, metadata).then(function(offlineMan) {
       savedOfflineUri = offlineMan.offlineUri;
-      if (option.asset)
+      if (option.asset) {
         option.isStored = true;
       }
       return shakaDemo.refreshAssetList_().then(function() {
