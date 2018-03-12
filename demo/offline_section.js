@@ -85,6 +85,8 @@ shakaDemo.setupOffline_ = function() {
       .addEventListener('click', shakaDemo.pauseDownload_);
   document.getElementById('resumeDownloadButton')
       .addEventListener('click', shakaDemo.resumeDownload_);
+  document.getElementById('renewLicenseButton')
+      .addEventListener('click', shakaDemo.renewLicense_);
   document.getElementById('assetList')
       .addEventListener('change', shakaDemo.updateButtons_.bind(null, true));
   shakaDemo.updateButtons_(true);
@@ -247,7 +249,19 @@ shakaDemo.resumeDownload_ = function() {
   storage.resume(savedOfflineUri);
 };
 
-
+/**
+ * @return {void}
+ * @private
+ */
+shakaDemo.renewLicense_ = function() {
+  let servers = {"com.microsoft.playready": "https://udrm.kaltura.com/cenc/playready/license?custom_data=eyJjYV9zeXN0ZW0iOiJPVlAiLCJ1c2VyX3Rva2VuIjoiZGpKOE1qSXlNalF3TVh6aWtDZ3lRNERaV2l4NGhza2I1UE5FTWdQZXlLVEEzZ3pUcmZpcWJiVDdTNGJIWlB3bGVfWFJHbWRjYnNlSmpJN2EwQjA3bDdZeWpBT2kxZ2RLZ2h6S0x2QVdhVk5DR2FwNEZZanVPUzFuZEE9PSIsImFjY291bnRfaWQiOjIyMjI0MDEsImNvbnRlbnRfaWQiOiIxX2Y5M3RlcHNuIiwiZmlsZXMiOiIxXzdjZ3dqeTJhLDFfeGMzamxncjcsMV9jbjgzbnp0dSwxX3Bnb2VvaHJzIn0%3D&signature=BPhBxtD34Gf%2BYqzwEAfFcT%2FZNDg%3D"}
+  let storage = new shaka.offline.Storage(shakaDemo.localPlayer_);
+  shakaDemo.localPlayer_.configure({'drm': {'servers': servers}});
+  storage.configure(/** @type {shakaExtern.OfflineConfiguration} */ ({
+    usePersistentLicense: true
+  }));
+  storage.renewLicense(savedOfflineUri || "offline:manifest/6"); // OREN PUT HERE THE URL OF THE MANIFEST AFTER YOU CLICK STORE - PROBABLY WILL BE ONE
+};
 /**
  * @return {!Promise}
  * @private
