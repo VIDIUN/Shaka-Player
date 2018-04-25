@@ -165,7 +165,7 @@ shakaExtern.PeriodDB;
  *   initSegmentKey: ?number,
  *   encrypted: boolean,
  *   keyId: ?string,
- *   segments: !Array.<shakaExtern.SegmentDB>,
+ *   segments: (!Array.<shakaExtern.SegmentDB>|!Array.<Object>),
  *   variantIds: !Array.<number>
  * }}
  *
