@@ -204,11 +204,16 @@ shakaDemo.storeDeleteAsset_ = function() {
     let nameField = document.getElementById('offlineName').value;
     let assetName = asset.name ? '[OFFLINE] ' + asset.name : null;
     let metadata = {name: assetName || nameField || asset.manifestUri};
-    p = storage.store(asset.manifestUri, metadata).then(function(offlineMan) {
+    p = storage.storeManifest(asset.manifestUri, metadata).then(
+        function(offlineMan) {
       savedOfflineUri = offlineMan.offlineUri;
       if (option.asset) {
         option.isStored = true;
       }
+      storage.download(savedOfflineUri).then((state) =>{
+        console.info(state);
+      });
+
       return shakaDemo.refreshAssetList_().then(function() {
         // Auto-select offline copy of asset after storing.
         let group = shakaDemo.offlineOptGroup_;
