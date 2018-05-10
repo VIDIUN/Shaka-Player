@@ -1742,6 +1742,21 @@ shaka.offline.Storage.prototype.configure = function(config) {};
  */
 shaka.offline.Storage.prototype.store = function(manifestUri, opt_appMetadata, opt_manifestParserFactory) {};
 /**
+ * Stores the given manifest (and not the content).
+ * @param {string} manifestUri The URI of the manifest to store.
+ * @param {!Object=} opt_appMetadata An arbitrary object from the application
+ *   that will be stored along-side the offline content.  Use this for any
+ *   application-specific metadata you need associated with the stored content.
+ *   For details on the data types that can be stored here, please refer to
+ *   {@link https://goo.gl/h62coS}
+ * @param {!shakaExtern.ManifestParser.Factory=} opt_manifestParserFactory
+ * @return {!Promise.<shakaExtern.StoredContent>}  A Promise to a structure
+ *   representing what was stored.  The "offlineUri" member is the URI that
+ *   should be given to Player.load() to play this piece of content offline.
+ *   The "appMetadata" member is the appMetadata argument you passed to store().
+ */
+shaka.offline.Storage.prototype.storeManifest = function(manifestUri, opt_appMetadata, opt_manifestParserFactory) {};
+/**
  * Removes the given stored content.
  * @param {string} contentUri
  * @return {!Promise}
@@ -1755,7 +1770,7 @@ shaka.offline.Storage.prototype.pause = function() {};
  * @param {string} offlineUri
  * @return {!Promise}
  */
-shaka.offline.Storage.prototype.resume = function(offlineUri) {};
+shaka.offline.Storage.prototype.download = function(offlineUri) {};
 /**
  * @param {string} offlineUri
  * @return {!Promise}
