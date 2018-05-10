@@ -249,7 +249,7 @@ shakaDemo.pauseDownload_ = function() {
  * @private
  */
 shakaDemo.resumeDownload_ = function() {
-  storage.resume(savedOfflineUri);
+  storage.download(savedOfflineUri);
 };
 
 
